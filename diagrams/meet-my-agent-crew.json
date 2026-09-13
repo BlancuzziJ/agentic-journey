@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Meet My Agent Crew",
+    "subtitle": "One home server, a handful of agents, one shared memory",
+    "output": "meet-my-agent-crew.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "captain", "type": "external", "label": "You", "sublabel": "ask, decide, correct", "pos": [40, 260], "size": [130, 64] },
+    { "id": "crew", "type": "backend", "label": "Agent Crew", "sublabel": "one job each: review, security, memory, routing", "pos": [250, 260], "size": [200, 64] },
+    { "id": "local-llm", "type": "backend", "label": "Local AI", "sublabel": "runs on my own hardware", "pos": [530, 460], "size": [150, 64] },
+    { "id": "vault", "type": "database", "label": "Shared Memory", "sublabel": "one source of truth", "pos": [530, 260], "size": [150, 64] },
+    { "id": "peer-fleet", "type": "backend", "label": "Every Device", "sublabel": "stays in sync", "pos": [760, 260], "size": [150, 64] }
+  ],
+  "connections": [
+    { "id": "captain-crew", "from": "captain", "to": "crew", "label": "asks", "variant": "emphasis" },
+    { "id": "crew-local", "from": "crew", "to": "local-llm", "label": "routine work", "variant": "dashed" },
+    { "id": "crew-vault", "from": "crew", "to": "vault", "label": "remembers everything", "labelAt": [490, 236] },
+    { "id": "vault-peers", "from": "vault", "to": "peer-fleet", "label": "syncs everywhere", "labelAt": [720, 338] }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "It's a team, not a bot", "items": ["One box on my network runs several small agents, each doing one job well", "That's easier to trust than a single do-everything assistant"] },
+    { "dot": "emerald", "title": "Not everything needs the cloud", "items": ["Routine, low-stakes work runs on my own hardware", "The cloud is for the hard problems, not the easy ones"] },
+    { "dot": "rose", "title": "One memory, everywhere I am", "items": ["Whatever the crew learns syncs to every device I use", "I never have to re-explain myself to a new session"] },
+    { "dot": "slate", "title": "Want the deeper cut?", "items": ["This gallery has a closer look at what's inside the crew, and how the memory sync actually works"] }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Inside the Agent Crew",
+    "subtitle": "What's actually running behind that one \"Agent Crew\" box",
+    "output": "inside-the-agent-crew.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "captain", "type": "external", "label": "You", "sublabel": "human, final word", "pos": [40, 280], "size": [130, 64] },
+    { "id": "primary-agent", "type": "backend", "label": "Primary Agent", "sublabel": "orchestrates the crew", "pos": [250, 280], "size": [150, 64] },
+    { "id": "review-agent", "type": "backend", "label": "Review Agent", "sublabel": "code / docs review", "pos": [250, 80], "size": [150, 64] },
+    { "id": "security-agent", "type": "backend", "label": "Security Agent", "sublabel": "monitoring", "pos": [250, 480], "size": [150, 64] },
+    { "id": "local-agent", "type": "backend", "label": "Local Inference Agent", "sublabel": "routine tasks", "pos": [480, 480], "size": [160, 64] },
+    { "id": "gpu-llm", "type": "backend", "label": "Local LLM", "sublabel": "GPU passthrough", "pos": [720, 480], "size": [140, 64] },
+    { "id": "memory-agent", "type": "backend", "label": "Memory Agent", "sublabel": "vault writes", "pos": [480, 280], "size": [150, 64] },
+    { "id": "vault", "type": "database", "label": "Shared Vault", "sublabel": "synced memory", "pos": [720, 280], "size": [140, 64] },
+    { "id": "syncthing", "type": "messagebus", "label": "File Sync", "sublabel": "P2P sync", "pos": [930, 280], "size": [130, 64] },
+    { "id": "peer-fleet", "type": "backend", "label": "Other Devices", "sublabel": "laptop + desktop agents", "pos": [1130, 280], "size": [150, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Home Server (Proxmox / hypervisor)", "wraps": ["primary-agent", "review-agent", "security-agent", "local-agent", "gpu-llm", "memory-agent", "vault"], "pad": 40 },
+    { "kind": "security-group", "label": "Isolated Container — Agent Host", "wraps": ["primary-agent", "review-agent", "security-agent", "local-agent", "gpu-llm", "memory-agent", "vault"], "pad": 16 }
+  ],
+  "connections": [
+    { "id": "captain-primary", "from": "captain", "to": "primary-agent", "label": "directs", "variant": "emphasis" },
+    { "id": "primary-review", "from": "primary-agent", "to": "review-agent", "label": "delegates to", "variant": "dashed" },
+    { "id": "primary-security", "from": "primary-agent", "to": "security-agent", "label": "delegates to", "variant": "dashed", "labelAt": [325, 358] },
+    { "id": "primary-local", "from": "primary-agent", "to": "local-agent", "label": "delegates to", "variant": "dashed" },
+    { "id": "local-gpu", "from": "local-agent", "to": "gpu-llm", "label": "routes to" },
+    { "id": "primary-memory", "from": "primary-agent", "to": "memory-agent", "label": "delegates to" },
+    { "id": "memory-vault", "from": "memory-agent", "to": "vault", "label": "writes" },
+    { "id": "vault-sync", "from": "vault", "to": "syncthing", "label": "sync" },
+    { "id": "sync-peers", "from": "syncthing", "to": "peer-fleet", "label": "sync" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "One box, many agents", "items": ["A single home server runs an isolated container, and inside it a small crew of specialized agents — not one monolithic bot", "Each agent has one job: review, security, memory, or routine local tasks"] },
+    { "dot": "emerald", "title": "Local first, cloud when it matters", "items": ["Routine, low-stakes tasks run on a local model over GPU passthrough, inside the same container", "Nothing here reaches the cloud until the task actually warrants it"] },
+    { "dot": "rose", "title": "Same memory, every device", "items": ["The container's memory syncs out to every other device's agent over a peer-to-peer file sync layer", "No single agent is the source of truth — the shared vault is"] }
+  ]
+}
