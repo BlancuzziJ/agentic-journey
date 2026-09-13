@@ -64,10 +64,18 @@
   }
 
   a.hero {
+    display: block;
+    text-decoration: none;
+    color: var(--text);
     background: var(--panel-hero);
     border: 1px solid var(--border-hero);
     border-radius: 14px;
     padding: 28px 28px 26px;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  a.hero:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
   }
   a.hero h2 { font-size: 24px; margin: 6px 0 8px; }
   a.hero .desc { font-size: 15px; max-width: 520px; }
