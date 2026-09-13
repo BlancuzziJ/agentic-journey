@@ -35,7 +35,7 @@
   ],
   "cards": [
     { "dot": "cyan", "title": "No fixed hub", "items": ["Every host runs its own agent against its own local vault copy", "Syncthing keeps the three copies consistent — nobody is upstream of anybody else"] },
-    { "dot": "emerald", "title": "The Captain reaches any agent", "items": ["Whichever host you're on, John's word is final, full stop", "The earlier diagram showed only this one session, on the laptop — that was accurate for the moment, not the general shape"] },
+    { "dot": "emerald", "title": "The Captain reaches any agent", "items": ["Whichever host you're on, John's word is final, full stop", "A new device joins by resolving its own vault root, then dropping into the same Memory/ folder — no per-device config"] },
     { "dot": "rose", "title": "Conflicts", "items": ["Concurrent edits from two hosts produce .sync-conflict-* files", "Never guess a resolution — flag it to the Captain"] }
   ]
 }
