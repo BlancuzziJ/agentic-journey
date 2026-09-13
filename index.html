@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Agentic Journey — Diagrams</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0b0f14;
+    --panel: #121820;
+    --border: #1f2933;
+    --text: #e6edf3;
+    --muted: #8b98a5;
+    --accent: #22d3ee;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 56px 24px 80px; }
+  header { margin-bottom: 48px; }
+  h1 {
+    font-size: 30px;
+    margin: 0 0 10px;
+    letter-spacing: -0.01em;
+  }
+  header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 620px;
+  }
+  header p + p { margin-top: 8px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  a.card {
+    display: block;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  a.card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .card .date {
+    font-size: 12px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .card h2 {
+    font-size: 18px;
+    margin: 6px 0 6px;
+  }
+  .card .desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin: 0;
+  }
+  .card .type {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--accent);
+    border: 1px solid rgba(34, 211, 238, 0.35);
+    border-radius: 999px;
+    padding: 3px 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  footer {
+    margin-top: 56px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  footer a { color: var(--muted); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Agentic Journey — Diagrams</h1>
+      <p>System diagrams generated end-to-end by an AI agent — from a plain-language ask to a validated, interactive HTML artifact.</p>
+      <p>Built with <a href="https://github.com/tt-a1i/archify" style="color: var(--accent)">archify</a>. Each entry links to a live, explorable diagram (pan/zoom, dark/light, route tracing).</p>
+    </header>
+    <div class="grid">
+      <a class="card" href="diagrams/homelab-memory-sync.html">
+        <div class="date">2026-09-13</div>
+        <h2>Homelab Memory Sync</h2>
+        <p class="desc">How a Captain and two peer AI agents share one memory across three hosts via Syncthing — no fixed hub.</p>
+        <span class="type">Architecture</span>
+      </a>
+    </div>
+    <footer>
+      Source specs for each diagram live alongside the rendered HTML in <a href="diagrams/">/diagrams</a>.
+    </footer>
+  </div>
+</body>
+</html>

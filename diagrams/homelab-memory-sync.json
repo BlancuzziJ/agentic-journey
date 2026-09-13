@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Homelab Memory Sync",
+    "subtitle": "Peer hosts, not a hub — any agent can be the one you're talking to",
+    "output": "homelab-memory-sync-v2.html",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    { "id": "captain", "type": "external", "label": "Captain", "sublabel": "John Blancuzzi", "pos": [40, 280], "size": [140, 64] },
+    { "id": "claude-laptop", "type": "backend", "label": "Claude Code", "sublabel": "john-lmde", "pos": [260, 40], "size": [150, 64] },
+    { "id": "claude-desktop", "type": "backend", "label": "Claude Code", "sublabel": "JOHN-DESKTOP", "pos": [260, 280], "size": [150, 64] },
+    { "id": "ham", "type": "backend", "label": "Ham", "sublabel": "hermes / CT200", "pos": [260, 520], "size": [150, 64] },
+    { "id": "vault-laptop", "type": "database", "label": "Vault", "sublabel": "~/Obsidian Vault", "pos": [500, 40], "size": [140, 64] },
+    { "id": "vault-desktop", "type": "database", "label": "Vault", "sublabel": "F:\\Obsidian", "pos": [500, 280], "size": [140, 64] },
+    { "id": "vault-hermes", "type": "database", "label": "Vault", "sublabel": "/home/hermes/vault", "pos": [500, 520], "size": [140, 64] },
+    { "id": "syncthing", "type": "messagebus", "label": "Syncthing", "sublabel": "P2P file sync", "pos": [760, 280], "size": [140, 64] },
+    { "id": "board", "type": "database", "label": "Board.md", "sublabel": "append-only crew log", "pos": [980, 280], "size": [140, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "Homelab LAN 192.168.10.0/24", "wraps": ["claude-laptop", "claude-desktop", "ham", "vault-laptop", "vault-desktop", "vault-hermes", "syncthing", "board"] }
+  ],
+  "connections": [
+    { "id": "captain-laptop", "from": "captain", "to": "claude-laptop", "label": "directs", "variant": "dashed" },
+    { "id": "captain-desktop", "from": "captain", "to": "claude-desktop", "label": "directs", "variant": "dashed", "labelDy": 16 },
+    { "id": "captain-ham", "from": "captain", "to": "ham", "label": "directs", "variant": "dashed" },
+    { "id": "claude-laptop-vault", "from": "claude-laptop", "to": "vault-laptop", "label": "reads / writes" },
+    { "id": "claude-desktop-vault", "from": "claude-desktop", "to": "vault-desktop", "label": "reads / writes" },
+    { "id": "ham-vault", "from": "ham", "to": "vault-hermes", "label": "reads / writes" },
+    { "id": "laptop-sync", "from": "vault-laptop", "to": "syncthing", "label": "sync" },
+    { "id": "desktop-sync", "from": "vault-desktop", "to": "syncthing", "label": "sync", "labelDy": 16 },
+    { "id": "hermes-sync", "from": "vault-hermes", "to": "syncthing", "label": "sync" },
+    { "id": "sync-board", "from": "syncthing", "to": "board", "label": "also syncs", "variant": "dashed" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "No fixed hub", "items": ["Every host runs its own agent against its own local vault copy", "Syncthing keeps the three copies consistent — nobody is upstream of anybody else"] },
+    { "dot": "emerald", "title": "The Captain reaches any agent", "items": ["Whichever host you're on, John's word is final, full stop", "The earlier diagram showed only this one session, on the laptop — that was accurate for the moment, not the general shape"] },
+    { "dot": "rose", "title": "Conflicts", "items": ["Concurrent edits from two hosts produce .sync-conflict-* files", "Never guess a resolution — flag it to the Captain"] }
+  ]
+}
