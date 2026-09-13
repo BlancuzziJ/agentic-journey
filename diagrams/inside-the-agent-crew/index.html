@@ -26,12 +26,13 @@
     height: 44px;
     display: flex;
     align-items: center;
-    gap: 14px;
+    justify-content: space-between;
     padding: 0 16px;
     background: var(--bg);
     border-bottom: 1px solid var(--border);
     font: 14px -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
   }
+  .bar .left { display: flex; align-items: center; gap: 14px; }
   .bar a { color: var(--text); text-decoration: none; }
   .bar a:hover { color: var(--accent); }
   .bar .sep { color: var(--border); }
@@ -46,9 +47,12 @@
 </head>
 <body>
   <div class="bar">
-    <a href="../../index.html">&larr; Back to gallery</a>
-    <span class="sep">/</span>
-    <a href="../meet-my-agent-crew/">Meet My Agent Crew</a>
+    <div class="left">
+      <a href="../../index.html">&larr; Back to gallery</a>
+      <span class="sep">/</span>
+      <a href="../meet-my-agent-crew/">Meet My Agent Crew</a>
+    </div>
+    <a href="https://www.linkedin.com/in/blancuzzi/" target="_blank" rel="noopener">LinkedIn ↗</a>
   </div>
   <iframe src="../inside-the-agent-crew.html" title="Inside the Agent Crew"></iframe>
 </body>
